@@ -9,7 +9,26 @@ A modern, customizable chat widget built with React and TypeScript that integrat
 
 ## 🎯 Overview
 
-This widget provides a fully-featured, embeddable chat experience that connects to your Dynamics 365 Contact Center environment. It supports both **Copilot Studio bots** and **live human agents**, with seamless handoff between them.
+This widget provides a fully-featured, embeddable chat experience that connects to your Dynamics 365 Contact Center environment. 
+
+### How It Works with Bots & Agents
+
+The widget connects to your **Omnichannel workstream**, and the behavior depends entirely on how you configure that workstream in Dynamics 365:
+
+| Workstream Configuration | What Happens |
+|--------------------------|--------------|
+| **Copilot Studio bot only** | Users chat with the bot — no human escalation |
+| **Human agents only** | Users connect directly to live agents (with queue) |
+| **Bot + Human escalation** | Bot handles initial conversation, escalates to human when needed |
+
+> **📖 Learn more:** [Add an agent to a workstream](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-workstreams#add-an-agent-to-a-workstream)
+
+**This means you can use this widget for:**
+- ✅ A standalone **Copilot Studio agent/bot** (self-service, no humans)
+- ✅ A **human-only** support channel (traditional live chat)
+- ✅ A **hybrid** experience (bot first, escalate to human when needed)
+
+The widget automatically adapts — it will show queue position/wait times when connecting to human agents, and seamlessly handle the handoff from bot to human if configured.
 
 ### 📸 Preview
 
