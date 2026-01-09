@@ -74,6 +74,8 @@ We built an additional layer on top of the core widget specifically to help **Mi
 | 🧩 Chrome Extension | Inject the widget onto ANY website for live demos |
 | 📱 PWA icons | Dynamic app icons for "Add to Home Screen" demos |
 | 🤖 AI follow-up questions | Demo feature showing AI-powered suggestions |
+| 🔗 Copy URL & Share | Copy chat URL to test on mobile devices or share with others |
+| 📲 Add to Home Screen | PWA support lets testers add the widget as a mobile app icon |
 
 **How Layer 2 works:**
 
@@ -92,13 +94,23 @@ https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx&company=micros
 3. The chat widget appears on their site with their branding
 4. Perfect for "imagine this on your website" demos
 
+**Copy URL Feature (Demo/Testing Only):**
+
+The widget includes a "Copy chat link" button in the menu panel that:
+1. Copies the full URL with all configuration parameters
+2. Allows you to open on a **mobile device** for testing responsive design
+3. Enables **"Add to Home Screen"** on mobile — the widget appears as a native app with dynamic branding
+4. Perfect for sharing demo links with colleagues or stakeholders
+
+> ⚠️ **Security Warning:** The copied URL contains your `orgId`, `orgUrl`, and `widgetId`. Only share with trusted parties and NEVER use URL parameters in production.
+
 ---
 
 ### 📋 Quick Reference: Which Layer Do I Need?
 
 | I am a... | I want to... | Use |
 |-----------|--------------|-----|
-| **Customer** | Deploy chat widget to my users | **Layer 1 only** — Configure branding in D365 Admin |
+| **Customer** | Deploy chat widget to my users | **Layer 1 only** — Configure branding in code (see below) |
 | **Customer** | Quickly test the widget | **Layer 1** — Use required params only |
 | **Microsoft/Partner** | Demo to a prospect | **Layer 2** — Use `?company=` for instant branding |
 | **Microsoft/Partner** | Show widget on customer's website | **Layer 2 + Chrome Extension** |
@@ -110,11 +122,13 @@ https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx&company=micros
 
 **For Production Deployments (Customers):**
 - ✅ Use Layer 1 features only
-- ✅ Configure branding in Dynamics 365 Admin Center
+- ✅ Configure branding directly in the code (logo URL, colors) — see [Branding Configuration](#-branding-configuration-for-production) below
 - ✅ Host on a secure domain (HTTPS required)
 - ✅ Add your domain to D365 allowed origins
 - ❌ Don't rely on dynamic logo extraction in production (it uses a third-party API)
 - ❌ Don't use the demo AI follow-up questions feature
+
+> **⚠️ Note on Branding:** This widget does NOT pull branding (logo, colors) from Omnichannel admin settings. You must configure branding directly in the code or via environment variables.
 
 **For Demos (Microsoft/Partners):**
 - ✅ Use Layer 2 features freely
@@ -190,6 +204,95 @@ npm run build
 ```
 
 The values are embedded at build time — no URL parameters needed!
+
+---
+
+### 🎨 Branding Configuration for Production
+
+> **Important:** This widget does NOT fetch branding from Dynamics 365 Omnichannel admin settings. Logo and colors must be configured directly in the code.
+
+#### Setting Your Logo
+
+**Option A: Host your own logo file**
+
+1. Add your logo to the `src/assets/` folder (e.g., `src/assets/company-logo.png`)
+2. Modify `src/App.tsx` to use your logo:
+
+```typescript
+// At the top of App.tsx, change the import:
+import aiIcon from "./assets/company-logo.png";  // Your logo
+
+// Remove or comment out the dynamic logo loading useEffect
+// The widget will use your imported logo directly
+```
+
+**Option B: Use a hosted logo URL**
+
+```typescript
+// In src/App.tsx, set your logo URL directly:
+const [logoUrl, setLogoUrl] = useState<string>("https://your-cdn.com/logo.png");
+```
+
+#### Setting Your Brand Colors
+
+**Option A: Add to the brandColors map in `src/config.ts`:**
+
+```typescript
+const brandColors: Record<string, { primary: string; secondary: string; light: string; dark: string }> = {
+  // Add your company
+  "yourcompany.com": { 
+    primary: "#0078D4",    // Main brand color (buttons, links, user messages)
+    secondary: "#005A9E",  // Secondary accent color
+    light: "#DEECF9",      // Light backgrounds, hover states
+    dark: "#004578"        // Dark accents, text
+  },
+};
+```
+
+Then set `company=yourcompany.com` in your config.
+
+**Option B: Use environment variables:**
+
+```env
+# .env.production
+VITE_PRIMARY_COLOR=#0078D4
+VITE_SECONDARY_COLOR=#005A9E
+VITE_LIGHT_COLOR=#DEECF9
+VITE_DARK_COLOR=#004578
+```
+
+**Option C: Hardcode in `src/config.ts`:**
+
+```typescript
+// Return fixed colors instead of extracting from logo
+customColors: {
+  primary: "#0078D4",
+  secondary: "#005A9E", 
+  light: "#DEECF9",
+  dark: "#004578"
+},
+```
+
+#### Color Usage Guide
+
+| Color | Where It's Used |
+|-------|-----------------|
+| `primary` | User message bubbles, buttons, links, active states |
+| `secondary` | Secondary buttons, borders |
+| `light` | Hover backgrounds, light accents |
+| `dark` | Dark mode accents, emphasis text |
+
+#### Remove Dynamic Branding for Production
+
+To fully disable Layer 2 dynamic branding features:
+
+```typescript
+// In src/App.tsx, remove or comment out:
+
+// 1. Remove the logo loading useEffect that calls getCompanyLogoUrl()
+// 2. Remove the color extraction useEffect that calls extractColorsFromImage()
+// 3. Set your logo and colors directly as shown above
+```
 
 ---
 
