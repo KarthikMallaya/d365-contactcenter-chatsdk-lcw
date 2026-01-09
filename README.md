@@ -374,7 +374,17 @@ npm run preview
 
 ## 📄 License
 
-This project is intended for use with Microsoft Dynamics 365 Contact Center.
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+### Disclaimer
+
+> ⚠️ **This is a community project, NOT an official Microsoft product.**
+
+- Provided "AS IS" without warranty of any kind
+- Not endorsed by or affiliated with Microsoft Corporation
+- Microsoft, Dynamics 365, Copilot Studio are trademarks of Microsoft Corporation
+- Requires a valid Microsoft Dynamics 365 Contact Center license
+- Use at your own risk in production environments
 
 ## 🔗 Related Resources
 
