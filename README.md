@@ -14,7 +14,7 @@ This widget provides a fully-featured, embeddable chat experience that connects 
 ### 📸 Preview
 
 <p align="center">
-  <img src="src/assets/widgetsample.png" alt="Chat Widget Preview" width="350">
+  <img src="src/assets/widgetsample.png" alt="Chat Widget Preview" width="500">
 </p>
 
 <p align="center"><em>The widget automatically adapts to your brand — logo, colors, and theme are dynamically extracted from your company domain or custom parameters.</em></p>
