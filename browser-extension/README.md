@@ -1,6 +1,17 @@
-# Copilot Chat Widget - Chrome Extension
+# Copilot Chat Widget - Browser Extension
 
-A premium Chrome extension that adds your custom Copilot chat widget to any website.
+A browser extension that adds your custom Copilot chat widget to any website. Works with Chrome, Edge, Brave, and other Chromium-based browsers.
+
+> **⚠️ Demo Feature:** This extension is part of **Layer 2** (Demo & Partner) and is intended for testing and demonstrations only. For production deployments, embed the widget directly in your website.
+
+## 📥 Download
+
+**First, download the extension files:**
+
+1. Go to the [GitHub repository](https://github.com/KarthikMallaya/d365-contactcenter-chatsdk-lcw)
+2. Click the green **"Code"** button → **"Download ZIP"**
+3. Extract the ZIP file
+4. The `browser-extension` folder contains all the extension files
 
 ## Features
 
@@ -13,11 +24,22 @@ A premium Chrome extension that adds your custom Copilot chat widget to any webs
 
 ## Installation
 
+### Chrome
 1. Open Chrome and go to `chrome://extensions/`
 2. Enable "Developer mode" in the top right
 3. Click "Load unpacked"
-4. Select the `chrome-extension` folder
+4. Select the `browser-extension` folder from the extracted ZIP
 5. The extension is now installed!
+
+### Microsoft Edge
+1. Open Edge and go to `edge://extensions/`
+2. Enable "Developer mode" in the left sidebar
+3. Click "Load unpacked"
+4. Select the `browser-extension` folder
+5. The extension is now installed!
+
+### Brave / Other Chromium Browsers
+Same process as Chrome — navigate to the extensions page and load unpacked.
 
 ## Configuration
 

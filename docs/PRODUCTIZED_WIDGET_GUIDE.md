@@ -4,7 +4,7 @@ This document explains how to use the existing widget code as a productized repl
 
 ## What Stays vs. What's Excluded
 - Included: Omnichannel Chat SDK integration (`src/chatSdk.ts`), core UI/state (`src/App.tsx`), follow-up questions via Agent Flows (`pauUrl`), optional agent tiles via Agent Flows (`agentsUrl`), attachments, typing, email transcript, voice input, basic theming via CSS variables.
-- Excluded: chrome-extension messaging (minimize/end-copy fallbacks) and runtime logo color extraction (dynamic theme). Keep the defaults or provide static colors via config if desired.
+- Excluded: browser-extension messaging (minimize/end-copy fallbacks) and runtime logo color extraction (dynamic theme). Keep the defaults or provide static colors via config if desired.
 
 ## High-Level Flow (No Extension, No Logo Theming)
 1) Host the built widget as a static site (Azure Web App or any static hosting).  
@@ -92,7 +92,7 @@ This document explains how to use the existing widget code as a productized repl
 
 ## Quick POC vs. Production Settings
 - POC: keep query params for config, enable `pauUrl`/`agentsUrl` as needed, default theme.
-- Production: inject config via `window.__WIDGET_CONFIG__`, set static brand colors via config (skip logo extractor), omit chrome-extension messaging, tighten CSP, and add telemetry/retry as desired.
+- Production: inject config via `window.__WIDGET_CONFIG__`, set static brand colors via config (skip logo extractor), omit browser-extension messaging, tighten CSP, and add telemetry/retry as desired.
 
 ## File References
 - Core UI/state: `src/App.tsx`

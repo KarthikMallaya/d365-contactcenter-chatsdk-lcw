@@ -3,12 +3,12 @@
 This document explains how the widget is put together, what comes from the Microsoft Omnichannel Chat SDK, and what we implement ourselves. It also calls out gaps/known limitations and how to extend the experience.
 
 ## High-Level Flow
-- `App.tsx` is the main UI/logic container. It orchestrates SDK calls, message state, theming, and chrome-extension messaging.
+- `App.tsx` is the main UI/logic container. It orchestrates SDK calls, message state, theming, and browser-extension messaging.
 - `chatSdk.ts` wraps `@microsoft/omnichannel-chat-sdk` with a small facade so the UI code uses a single client for start/end chat, send message, upload/download attachments, typing events, and email transcript.
 - `config.ts` reads query-string parameters (`orgId`, `orgUrl`, `widgetId`, `company`, `agentsUrl`, `pauUrl`, custom colors) and maps domains to preset brand colors.
 - `colorExtractor.ts` extracts a palette from the company logo (via `img.logo.dev`) with fallbacks and applies CSS variables for runtime theming.
 - `index.css` holds the styling for the widget (bubbles, toolbar, modals, skeletons, etc.).
-- `chrome-extension/` injects the iframe and passes messages (minimize/end chat) between the host page and the widget.
+- `browser-extension/` injects the iframe and passes messages (minimize/end chat) between the host page and the widget.
 
 ## SDK Usage (Covered)
 - Initialize + start chat: `chatSdk.startChat()` calls `sdk.startChat()`.

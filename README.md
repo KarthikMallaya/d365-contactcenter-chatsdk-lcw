@@ -470,8 +470,8 @@ const brandColors: Record<string, {...}> = {
 };
 ```
 
-#### 5. Remove Chrome Extension (Optional)
-The `/chrome-extension` folder is only for demo purposes. You can:
+#### 5. Remove Browser Extension (Optional)
+The `/browser-extension` folder is only for demo purposes. You can:
 - Delete the entire folder for production builds
 - Or simply don't distribute it to customers
 
@@ -651,7 +651,7 @@ https://yourapp.com/?orgId=abc123-def456&orgUrl=https://contoso.crm.dynamics.com
 │   ├── index.css            # Styles
 │   ├── main.tsx             # React entry point
 │   └── assets/              # Icons and images
-├── chrome-extension/        # Browser extension for embedding
+├── browser-extension/       # Browser extension for embedding (demo)
 │   ├── manifest.json
 │   ├── content.js
 │   ├── popup.html
@@ -872,13 +872,14 @@ The included Chrome extension allows injecting the chat widget into any website.
 
 ### Installation
 
-1. Open `chrome://extensions/`
-2. Enable "Developer mode"
-3. Click "Load unpacked"
-4. Select the `chrome-extension` folder
-5. Configure your Omnichannel parameters in the extension popup
+1. Download or clone this repository
+2. Open `chrome://extensions/` (or `edge://extensions/` for Edge)
+3. Enable "Developer mode"
+4. Click "Load unpacked"
+5. Select the `browser-extension` folder
+6. Configure your Omnichannel parameters in the extension popup
 
-See [chrome-extension/README.md](chrome-extension/README.md) for detailed instructions.
+See [browser-extension/README.md](browser-extension/README.md) for detailed instructions.
 
 ## 🛠️ Development
 
