@@ -19,7 +19,113 @@ This widget provides a fully-featured, embeddable chat experience that connects 
 
 <p align="center"><em>The widget automatically adapts to your brand — logo, colors, and theme are dynamically extracted from your company domain or custom parameters.</em></p>
 
-### ✨ Dynamic Branding
+---
+
+## 🏗️ Architecture: Two-Layer Design
+
+> **Important**: This project has **two distinct layers** designed for different audiences. Please read this section carefully to understand which parts apply to you.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Layer%201-Production%20Ready-green?style=for-the-badge" alt="Layer 1">
+  <img src="https://img.shields.io/badge/Layer%202-Demo%20%26%20Partner-blue?style=for-the-badge" alt="Layer 2">
+</p>
+
+### 🟢 Layer 1: Core Chat Widget (For Customers & Production)
+
+**This is what you need if you're deploying to end users.**
+
+The core layer connects directly to Microsoft Dynamics 365 Contact Center using the official Omnichannel Chat SDK. It provides:
+
+| Feature | Description |
+|---------|-------------|
+| ✅ Real-time chat | Connect with Copilot Studio bots and live agents |
+| ✅ File attachments | Send/receive images and documents |
+| ✅ Adaptive Cards | Rich interactive content from your bot |
+| ✅ Typing indicators | See when agents are responding |
+| ✅ Queue management | Display wait times and position |
+| ✅ Email transcript | Send conversation history to customers |
+| ✅ Voice input | Speech-to-text messaging |
+| ✅ Text-to-speech | Read responses aloud for accessibility |
+
+**How to use Layer 1:**
+
+1. Host the widget on your web server (Azure, etc.)
+2. Configure your branding in **Dynamics 365 Admin Center** (logo, colors, welcome message)
+3. Pass only the required parameters:
+   ```
+   https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx
+   ```
+4. The widget connects to your Omnichannel instance and uses your D365 configured branding
+
+**This is the production-ready path for customer deployments.**
+
+---
+
+### 🔵 Layer 2: Dynamic Branding & Demo Capabilities (For Microsoft & Partners)
+
+**This is designed for internal demos, partner showcases, and rapid prototyping.**
+
+We built an additional layer on top of the core widget specifically to help **Microsoft teams, partners, and sales engineers** demonstrate the product quickly without needing to configure a full D365 environment for each customer demo.
+
+| Feature | Purpose |
+|---------|---------|
+| 🎨 Dynamic logo extraction | Pass `?company=contoso.com` and we fetch their logo automatically |
+| 🌈 Automatic color theming | Colors are extracted from the logo to brand the entire UI |
+| 🎯 URL parameter overrides | Customize colors via `?primaryColor=#0078D4` |
+| 🧩 Chrome Extension | Inject the widget onto ANY website for live demos |
+| 📱 PWA icons | Dynamic app icons for "Add to Home Screen" demos |
+| 🤖 AI follow-up questions | Demo feature showing AI-powered suggestions |
+
+**How Layer 2 works:**
+
+```
+https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx&company=microsoft.com
+                                                                    ↑
+                                                    This triggers Layer 2 magic:
+                                                    • Fetches Microsoft's logo
+                                                    • Extracts brand colors
+                                                    • Themes the entire widget
+```
+
+**The Chrome Extension** allows you to:
+1. Visit any customer's website
+2. Click the extension icon
+3. The chat widget appears on their site with their branding
+4. Perfect for "imagine this on your website" demos
+
+---
+
+### 📋 Quick Reference: Which Layer Do I Need?
+
+| I am a... | I want to... | Use |
+|-----------|--------------|-----|
+| **Customer** | Deploy chat widget to my users | **Layer 1 only** — Configure branding in D365 Admin |
+| **Customer** | Quickly test the widget | **Layer 1** — Use required params only |
+| **Microsoft/Partner** | Demo to a prospect | **Layer 2** — Use `?company=` for instant branding |
+| **Microsoft/Partner** | Show widget on customer's website | **Layer 2 + Chrome Extension** |
+| **Developer** | Customize and extend | Fork repo, modify as needed |
+
+---
+
+### ⚠️ Important Notes
+
+**For Production Deployments (Customers):**
+- ✅ Use Layer 1 features only
+- ✅ Configure branding in Dynamics 365 Admin Center
+- ✅ Host on a secure domain (HTTPS required)
+- ✅ Add your domain to D365 allowed origins
+- ❌ Don't rely on dynamic logo extraction in production (it uses a third-party API)
+- ❌ Don't use the demo AI follow-up questions feature
+
+**For Demos (Microsoft/Partners):**
+- ✅ Use Layer 2 features freely
+- ✅ Use Chrome Extension for impressive live demos
+- ✅ Use `?company=` parameter for instant branding
+- ⚠️ Remember: Demo features may have external API dependencies
+
+---
+
+### ✨ Dynamic Branding (Layer 2 Details)
 
 The widget features **intelligent automatic branding**:
 - 🎨 **Auto Logo Detection** - Pass your company domain and the widget fetches your logo automatically
