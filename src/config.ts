@@ -8,7 +8,7 @@ export const getOmnichannelConfig = () => {
   const channelId = params.get("channelId") || "lcw";
   const company = params.get("company");
   const headerIcon = params.get("headerIcon");
-  const pauUrl = params.get("pauUrl") || "https://2c8892ce49f8e83d9c89509978a953.08.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/40079a7d266b48e49717e6564b34a6a4/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=-bnPrYsDCuoNePu8_Ohpa1aQ9sfg2hdiisHUoKWyQCM";
+  const pauUrl = params.get("pauUrl") || ""; // Optional: Power Automate URL for AI follow-up questions (demo feature)
   const agentsUrl = params.get("agentsUrl"); // Power Automate URL for dynamic agents
   const primaryColor = normalizeHex(params.get("primaryColor"));
   const secondaryColor = normalizeHex(params.get("secondaryColor"));
@@ -60,7 +60,9 @@ export const getCompanyLogoUrl = (company: string | null) => {
     return "/src/assets/ai.png";
   }
   
-  return `https://img.logo.dev/${baseUrl}?token=pk_FHMIzRCfRay8ZQ_zji0RoA&fallback_url=placeholder`;
+  // Logo.dev API - Get your free token at https://logo.dev
+  // For production, consider hosting logos yourself instead of using third-party APIs
+  return `https://img.logo.dev/${baseUrl}?token=YOUR_LOGO_DEV_TOKEN&fallback_url=placeholder`;
 };
 
 export const getBrandColors = (company: string | null) => {

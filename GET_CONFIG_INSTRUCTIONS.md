@@ -1,6 +1,6 @@
 # How to Get Valid Omnichannel Configuration
 
-Your current config domain `m-e33ae28d-ada6-ef11-8a64-000d3a370c12.us.omnichannelengagementhub.com` does not resolve (DNS failure).
+This guide helps you find the correct `orgId`, `orgUrl`, and `widgetId` values for your Dynamics 365 Contact Center environment.
 
 ## Steps to Get Valid Configuration:
 

@@ -74,7 +74,10 @@ function openChat() {
   if (settings.pauUrl) params.append('pauUrl', settings.pauUrl);
   if (settings.agentsUrl) params.append('agentsUrl', settings.agentsUrl);
 
-  const widgetUrl = `https://kuocwidget-aecddkc9cueqfxfu.australiaeast-01.azurewebsites.net/?${params.toString()}`;
+  // IMPORTANT: Replace this URL with your hosted widget URL
+  // You must host the widget yourself - see README.md for deployment options
+  const WIDGET_HOST_URL = 'https://YOUR-HOSTED-WIDGET-URL.com';
+  const widgetUrl = `${WIDGET_HOST_URL}/?${params.toString()}`;
 
   // Create backdrop
   const backdrop = document.createElement('div');

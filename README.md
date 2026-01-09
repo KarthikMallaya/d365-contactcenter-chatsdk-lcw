@@ -591,6 +591,17 @@ The widget features **intelligent automatic branding**:
   - Organization URL
   - Chat Widget ID (from Omnichannel admin)
 
+### ⚠️ Important: Placeholder Configuration
+
+This repository contains **placeholder values** that you must replace before use:
+
+| File | Placeholder | What to Replace With |
+|------|-------------|---------------------|
+| `src/config.ts` | `YOUR_LOGO_DEV_TOKEN` | Your [logo.dev](https://logo.dev) API token (or remove and use static logos) |
+| `browser-extension/content.js` | `YOUR-HOSTED-WIDGET-URL.com` | Your hosted widget URL after deployment |
+
+> **Note:** The `pauUrl` (Power Automate URL for AI follow-up questions) is a demo feature. Leave empty or provide your own endpoint.
+
 ### Installation
 
 ```bash
