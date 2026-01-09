@@ -101,7 +101,7 @@ We built an additional layer on top of the core widget specifically to help **Mi
 | 🎨 Dynamic logo extraction | Pass `?company=contoso.com` and we fetch their logo automatically |
 | 🌈 Automatic color theming | Colors are extracted from the logo to brand the entire UI |
 | 🎯 URL parameter overrides | Customize colors via `?primaryColor=#0078D4` |
-| 🧩 Chrome Extension | Inject the widget onto ANY website for live demos |
+| 🧩 Browser Extension | Inject the widget onto ANY website for live demos |
 | 📱 PWA icons | Dynamic app icons for "Add to Home Screen" demos |
 | 🤖 AI follow-up questions | Demo feature showing AI-powered suggestions |
 | 🔗 Copy URL & Share | Copy chat URL to test on mobile devices or share with others |
@@ -118,7 +118,7 @@ https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx&company=micros
                                                     • Themes the entire widget
 ```
 
-**The Chrome Extension** allows you to:
+**The Browser Extension** allows you to:
 1. Visit any customer's website
 2. Click the extension icon
 3. The chat widget appears on their site with their branding
@@ -143,7 +143,7 @@ The widget includes a "Copy chat link" button in the menu panel that:
 | **Customer** | Deploy chat widget to my users | **Layer 1 only** — Configure branding in code (see below) |
 | **Customer** | Quickly test the widget | **Layer 1** — Use required params only |
 | **Microsoft/Partner** | Demo to a prospect | **Layer 2** — Use `?company=` for instant branding |
-| **Microsoft/Partner** | Show widget on customer's website | **Layer 2 + Chrome Extension** |
+| **Microsoft/Partner** | Show widget on customer's website | **Layer 2 + Browser Extension** |
 | **Developer** | Customize and extend | Fork repo, modify as needed |
 
 ---
@@ -162,7 +162,7 @@ The widget includes a "Copy chat link" button in the menu panel that:
 
 **For Demos (Microsoft/Partners):**
 - ✅ Use Layer 2 features freely
-- ✅ Use Chrome Extension for impressive live demos
+- ✅ Use Browser Extension for impressive live demos
 - ✅ Use `?company=` parameter for instant branding
 - ⚠️ Remember: Demo features may have external API dependencies
 
@@ -579,7 +579,7 @@ The widget features **intelligent automatic branding**:
 - **Suggested actions** - Quick reply buttons from bot responses
 - **Follow-up questions** - AI-powered question suggestions *(demo feature)*
 - **PWA support** - Add to Home Screen with dynamic icons
-- **Chrome Extension** - Inject widget into any website
+- **Browser Extension** - Inject widget into any website *(demo feature)*
 
 ## 🚀 Quick Start
 
@@ -866,9 +866,9 @@ npm run build
 swa deploy ./dist --env production
 ```
 
-## 🧩 Chrome Extension
+## 🧩 Browser Extension
 
-The included Chrome extension allows injecting the chat widget into any website.
+The included browser extension allows injecting the chat widget into any website. Works with Chrome, Edge, Brave, and other Chromium-based browsers.
 
 ### Installation
 
