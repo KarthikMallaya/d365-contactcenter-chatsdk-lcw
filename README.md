@@ -23,7 +23,7 @@ This widget provides a fully-featured, embeddable chat experience that connects 
 - **Queue management** - Display position and estimated wait time
 - **Agent switching** - Switch between different support topics
 - **Suggested actions** - Quick reply buttons from bot responses
-- **Follow-up questions** - AI-powered question suggestions via Power Automate
+- **Follow-up questions** - AI-powered question suggestions *(demo feature)*
 - **PWA support** - Add to Home Screen with dynamic icons
 - **Chrome Extension** - Inject widget into any website
 
@@ -164,6 +164,107 @@ Switch between different support topics/queues without ending the chat:
 - Urgent Assistance
 
 Dynamic agents can be loaded from Power Automate.
+
+### 🤖 AI-Powered Follow-Up Questions (Demo Feature)
+
+> ⚠️ **Demo Feature**: The follow-up question generation is included as a demonstration. The default `pauUrl` points to a sample Power Automate flow that may not be available. **Contributors should implement their own endpoint.**
+
+After each bot response, the widget can fetch AI-generated follow-up questions to help users continue the conversation. This feature calls an HTTP endpoint (typically a Power Automate flow or Azure Function) that returns suggested questions.
+
+#### Expected JSON Response Format
+
+Your endpoint should return JSON in one of these formats:
+
+**Option 1: Array property (recommended)**
+```json
+{
+  "questions": [
+    { "item": "How do I reset my password?" },
+    { "item": "What are your business hours?" }
+  ]
+}
+```
+
+**Option 2: Simple string array**
+```json
+{
+  "suggestions": [
+    "How do I reset my password?",
+    "What are your business hours?"
+  ]
+}
+```
+
+The widget extracts the first array found in the response and displays up to 2 questions.
+
+#### Request Payload
+
+Your endpoint receives a POST request with:
+```json
+{
+  "botResponse": "The last message from the bot/agent",
+  "companyName": "contoso.com",
+  "url": "contoso.com"
+}
+```
+
+#### Configuration
+
+Pass your endpoint URL via the `pauUrl` query parameter:
+```
+?pauUrl=https://your-function.azurewebsites.net/api/generate-questions
+```
+
+**Implementation Ideas:**
+- Azure Function with Azure OpenAI
+- Power Automate flow with AI Builder
+- Custom API with any LLM provider
+
+## 🌐 Hosting & Deployment
+
+This chat widget is a **static web application** that must be hosted on a web server to function. It cannot run as a local file due to browser security restrictions and the need to communicate with Dynamics 365 APIs.
+
+### Recommended Hosting Options
+
+| Platform | Description | Best For |
+|----------|-------------|----------|
+| **Azure Static Web Apps** | Free tier available, global CDN, custom domains | Production deployments |
+| **Azure App Service** | Full web app hosting with SSL | Enterprise deployments |
+| **Azure Blob Storage** | Static website hosting, very low cost | Simple deployments |
+| **GitHub Pages** | Free hosting for public repos | Demo/testing |
+| **Vercel / Netlify** | Free tier, automatic deployments | Quick prototyping |
+
+### Deployment Steps
+
+1. **Build the production bundle:**
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy the `dist/` folder** to your hosting platform
+
+3. **Configure your domain** in Dynamics 365:
+   - Go to **Customer Service admin center** → **Channels** → **Chat**
+   - Add your hosted domain to the **Allowed origins** list
+
+### Environment Considerations
+
+- **HTTPS Required**: Omnichannel SDK requires secure connections
+- **CORS**: Your hosting domain must be whitelisted in D365 admin center
+- **Custom Domain**: Recommended for production use with SSL certificate
+
+### Example: Azure Static Web Apps Deployment
+
+```bash
+# Install Azure SWA CLI
+npm install -g @azure/static-web-apps-cli
+
+# Build the app
+npm run build
+
+# Deploy to Azure
+swa deploy ./dist --env production
+```
 
 ## 🧩 Chrome Extension
 
