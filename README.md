@@ -47,7 +47,7 @@ The widget automatically adapts — it will show queue position/wait times when 
   <img src="src/assets/widgetsample.png" alt="Chat Widget Preview" width="500">
 </p>
 
-<p align="center"><em>The widget automatically adapts to your brand — logo, colors, and theme are dynamically extracted from your company domain or custom parameters.</em></p>
+<p align="center"><em>The widget supports full branding customization — configure your logo and brand colors in code for production deployments.</em></p>
 
 ---
 
