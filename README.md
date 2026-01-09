@@ -21,7 +21,7 @@ This widget provides a fully-featured, embeddable chat experience that connects 
 - **Email transcript** - Send conversation history to email
 - **Dynamic branding** - Auto-extract colors from company logos
 - **Queue management** - Display position and estimated wait time
-- **Agent switching** - Switch between different support topics
+- **Agent switching** - Switch between support topics *(UI only - routing not implemented)*
 - **Suggested actions** - Quick reply buttons from bot responses
 - **Follow-up questions** - AI-powered question suggestions *(demo feature)*
 - **PWA support** - Add to Home Screen with dynamic icons
@@ -153,9 +153,11 @@ Users can request their conversation transcript via email:
 - Enter email address
 - Transcript is sent via Omnichannel's email functionality
 
-### 🔄 Agent Switching
+### 🔄 Agent Switching (UI Demo - Implementation Pending)
 
-Switch between different support topics/queues without ending the chat:
+> ⚠️ **Partial Implementation**: The agent switching UI is fully functional, but the backend routing to different Omnichannel workstreams has **not been implemented yet**. Currently, switching agents only updates the UI state and shows a toast notification.
+
+The widget displays a panel for switching between different support topics:
 - General Support
 - Technical Support
 - Sales & Products
@@ -163,7 +165,51 @@ Switch between different support topics/queues without ending the chat:
 - Feedback & Suggestions
 - Urgent Assistance
 
-Dynamic agents can be loaded from Power Automate.
+**What's Implemented:**
+- ✅ Agent selection UI panel
+- ✅ Dynamic agent list loading from Power Automate (`agentsUrl`)
+- ✅ Visual state management and toast notifications
+
+**What Needs Implementation:**
+- ❌ Connecting to different Omnichannel workstreams (different `widgetId` values)
+- ❌ Ending current chat session and starting new one with different widget
+- ❌ Preserving context/transcript when switching
+
+**Intended Behavior (for contributors):**
+
+Each "agent" should map to a different **Chat Widget ID** in Dynamics 365 Omnichannel, routing users to different queues/workstreams:
+
+```typescript
+// Example: Agent to Widget mapping (not yet implemented)
+const agentWidgetMapping = {
+  "general": "widget-id-for-general-queue",
+  "technical": "widget-id-for-tech-support-queue",
+  "sales": "widget-id-for-sales-queue",
+  "billing": "widget-id-for-billing-queue"
+};
+
+// When user switches agent, the app should:
+// 1. End current chat session
+// 2. Reinitialize SDK with new widgetId
+// 3. Start new chat session with the appropriate queue
+```
+
+**Dynamic Agents via Power Automate:**
+
+You can provide a custom agent list by passing an `agentsUrl` parameter:
+```
+?agentsUrl=https://your-flow.azure.com/api/agents
+```
+
+Expected response format:
+```json
+{
+  "agents": [
+    { "id": "support", "name": "Customer Support", "description": "General help", "icon": "" },
+    { "id": "tech", "name": "Technical Team", "description": "Technical issues", "icon": "" }
+  ]
+}
+```
 
 ### 🤖 AI-Powered Follow-Up Questions (Demo Feature)
 
