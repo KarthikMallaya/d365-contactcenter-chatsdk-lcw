@@ -11,9 +11,20 @@ A modern, customizable chat widget built with React and TypeScript that integrat
 
 This widget provides a fully-featured, embeddable chat experience that connects to your Dynamics 365 Contact Center environment. 
 
-### How It Works with Bots & Agents
+### How It Works: Chat Channel + Workstream
 
-The widget connects to your **Omnichannel workstream**, and the behavior depends entirely on how you configure that workstream in Dynamics 365:
+This widget requires two configurations in **Dynamics 365 Contact Center**:
+
+#### 1️⃣ Chat Channel (Widget Configuration)
+First, create a **Chat Widget** in D365 Admin Center. This gives you the three values needed to connect:
+- `orgId` — Your organization ID
+- `orgUrl` — Your Omnichannel URL  
+- `widgetId` — The unique widget identifier
+
+> **📖 Setup Guide:** [Add a chat widget](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/add-chat-widget)
+
+#### 2️⃣ Workstream (Routing & Bot Configuration)
+The **workstream** controls how conversations are routed — to bots, humans, or both:
 
 | Workstream Configuration | What Happens |
 |--------------------------|--------------|
@@ -21,7 +32,7 @@ The widget connects to your **Omnichannel workstream**, and the behavior depends
 | **Human agents only** | Users connect directly to live agents (with queue) |
 | **Bot + Human escalation** | Bot handles initial conversation, escalates to human when needed |
 
-> **📖 Learn more:** [Add an agent to a workstream](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-workstreams#add-an-agent-to-a-workstream)
+> **📖 Learn more:** [Create and manage workstreams](https://learn.microsoft.com/en-us/dynamics365/customer-service/administer/create-workstreams)
 
 **This means you can use this widget for:**
 - ✅ A standalone **Copilot Studio agent/bot** (self-service, no humans)
