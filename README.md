@@ -11,6 +11,21 @@ A modern, customizable chat widget built with React and TypeScript that integrat
 
 This widget provides a fully-featured, embeddable chat experience that connects to your Dynamics 365 Contact Center environment. It supports both **Copilot Studio bots** and **live human agents**, with seamless handoff between them.
 
+### 📸 Preview
+
+![Chat Widget Preview](src/assets/widgetsample.png)
+
+*The widget automatically adapts to your brand — logo, colors, and theme are dynamically extracted from your company domain or custom parameters.*
+
+### ✨ Dynamic Branding
+
+The widget features **intelligent automatic branding**:
+- 🎨 **Auto Logo Detection** - Pass your company domain and the widget fetches your logo automatically
+- 🌈 **Color Extraction** - Primary colors are extracted from your logo to theme the entire UI
+- 🎯 **Custom Colors** - Override with your own brand colors via URL parameters
+- 📱 **PWA Icons** - Dynamic app icons generated for "Add to Home Screen" functionality
+- 🏷️ **Brand Name** - Document title and app name derived from your company
+
 ### Key Capabilities
 
 - **Real-time chat** with bot and human agents via Omnichannel SDK
