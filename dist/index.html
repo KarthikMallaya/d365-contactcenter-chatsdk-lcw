@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="/assets/ai-BWG1keWz.png" />
+    <title>Copilot Chat</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+        background: #ffffff;
+        overflow: hidden;
+      }
+      .initial-skeleton {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        background: #ffffff;
+        z-index: 9999;
+      }
+      .initial-header {
+        height: 61px;
+        border-bottom: 1px solid #f1f5f9;
+        flex-shrink: 0;
+      }
+      .initial-content {
+        flex: 1;
+        padding: 24px;
+        overflow: hidden;
+      }
+      .initial-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 24px;
+      }
+      .initial-dot {
+        width: 8px;
+        height: 8px;
+        background: #cbd5e1;
+        border-radius: 50%;
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+      .initial-status-text {
+        font-size: 13px;
+        color: #94a3b8;
+      }
+      .initial-message {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+      .initial-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s ease-in-out infinite;
+        flex-shrink: 0;
+      }
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+      .initial-bubble {
+        height: 60px;
+        flex: 1;
+        max-width: 400px;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 50%, #f1f5f9 100%);
+        background-size: 200% 100%;
+        animation: shimmer 1.5s ease-in-out infinite;
+      }
+      .initial-bubble.short {
+        height: 40px;
+        max-width: 250px;
+      }
+      body.react-loaded .initial-skeleton {
+        opacity: 0;
+        transition: opacity 0.3s ease-out;
+        pointer-events: none;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DHWYlOeo.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-HJpQ4Wpe.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <div class="initial-skeleton" id="initialSkeleton">
+      <div class="initial-header"></div>
+      <div class="initial-content">
+        <div class="initial-status">
+          <div class="initial-dot"></div>
+          <span class="initial-status-text">Connecting to assistant...</span>
+        </div>
+        <div class="initial-message">
+          <div class="initial-avatar"></div>
+          <div class="initial-bubble"></div>
+        </div>
+        <div class="initial-message">
+          <div class="initial-avatar"></div>
+          <div class="initial-bubble short"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

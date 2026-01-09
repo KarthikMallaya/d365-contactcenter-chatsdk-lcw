@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamics 365 Contact Center Chat Widget - Installation Guide</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI Variable Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      color: #0f172a;
+      line-height: 1.6;
+      padding: 40px 20px;
+      min-height: 100vh;
+      font-optical-sizing: auto;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+
+    .hero {
+      background: white;
+      padding: 60px 40px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .hero-logo {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 24px;
+      display: block;
+    }
+
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #0f172a;
+      letter-spacing: -0.5px;
+    }
+
+    .hero p {
+      font-size: 16px;
+      color: #64748b;
+      margin-bottom: 20px;
+      font-weight: 400;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 28px;
+    }
+
+    .download-section {
+      margin-top: 8px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #0f172a;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-1px);
+      background: #1e293b;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+    }
+
+    .download-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .content {
+      padding: 60px 40px;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 60px;
+      padding-bottom: 40px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .intro h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #0f172a;
+    }
+
+    .intro p {
+      font-size: 15px;
+      color: #64748b;
+      max-width: 700px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .step {
+      margin-bottom: 48px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start;
+    }
+
+    .step-number {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: #0f172a;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-content {
+      flex: 1;
+    }
+
+    .step-content h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #0f172a;
+    }
+
+    .step-content p {
+      font-size: 16px;
+      color: #475569;
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+
+    .code-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 20px 24px;
+      border-radius: 12px;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: 14px;
+      margin: 16px 0;
+      overflow-x: auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .screenshot {
+      margin: 20px 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+      border: 1px solid #e2e8f0;
+    }
+
+    .screenshot img {
+      width: 100%;
+      display: block;
+    }
+
+    .info-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 20px 24px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .info-box h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e40af;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .info-box p {
+      color: #1e40af;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .warning-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px 24px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .warning-box h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #92400e;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .warning-box p {
+      color: #92400e;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .config-item {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .config-item strong {
+      display: block;
+      color: #0f172a;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .config-item span {
+      color: #64748b;
+      font-size: 13px;
+    }
+
+    .footer {
+      background: #f8fafc;
+      padding: 40px;
+      text-align: center;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .footer p {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 40px 24px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .content {
+        padding: 40px 24px;
+      }
+
+      .step {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .step-number {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <img src="icons/icon128.png" alt="Copilot" class="hero-logo">
+      <h1>Dynamics 365 Contact Center Chat Widget</h1>
+      <p>Add Microsoft Dynamics 365 Contact Center Chat Widget to websites</p>
+      <div class="demo-badge">
+        Internal Microsoft Demo • Not for Production Use
+      </div>
+      <div class="download-section">
+        <a href="#" class="download-btn" id="downloadBtn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+        </svg>
+        Download Extension
+      </a>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="intro">
+        <h2>Installation Guide</h2>
+        <p>Follow these simple steps to install and configure the Dynamics 365 Contact Center Chat Widget extension in Microsoft Edge or Google Chrome. The entire process takes less than 5 minutes. This is an internal Microsoft demo tool.</p>
+      </div>
+
+      <!-- Step 1 -->
+      <div class="step">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h3>Download the Extension</h3>
+          <p>Click the download button above to get the extension ZIP file. Save it to a location you can easily find, like your Downloads folder.</p>
+          <div class="info-box">
+            <h4>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              File Information
+            </h4>
+            <p>The ZIP file contains all necessary files for the extension including configuration, scripts, and styling.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h3>Extract the ZIP File</h3>
+          <p>Right-click the downloaded ZIP file and select "Extract All" (Windows) or double-click (Mac). Extract it to a permanent location where you won't accidentally delete it.</p>
+          <div class="warning-box">
+            <h4>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+              </svg>
+              Important
+            </h4>
+            <p>Don't delete the extracted folder! Chrome needs access to these files for the extension to work. Keep them in a safe, permanent location.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h3>Open Browser Extensions</h3>
+          <p>Open Microsoft Edge or Google Chrome and navigate to the extensions page:</p>
+          <ul style="margin-left: 20px; color: #475569;">
+            <li style="margin: 8px 0;"><strong>Microsoft Edge:</strong> Type <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 4px; color: #0f172a;">edge://extensions/</code> in the address bar</li>
+            <li style="margin: 8px 0;"><strong>Google Chrome:</strong> Type <code style="background: #f1f5f9; padding: 2px 8px; border-radius: 4px; color: #0f172a;">chrome://extensions/</code> in the address bar</li>
+            <li style="margin: 8px 0;">Or click the browser menu (⋮) → Extensions</li>
+          </ul>
+          <div class="code-box">
+Microsoft Edge: edge://extensions/
+Google Chrome: chrome://extensions/
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step">
+        <div class="step-number">4</div>
+        <div class="step-content">
+          <h3>Enable Developer Mode</h3>
+          <p>In the top-right corner of the Extensions page, you'll see a toggle switch labeled "Developer mode". Click it to turn it ON (it should turn blue).</p>
+          <div class="info-box">
+            <h4>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              Why Developer Mode?
+            </h4>
+            <p>Developer mode allows you to install extensions from your computer instead of the browser's extension store. It's completely safe for this purpose.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 5 -->
+      <div class="step">
+        <div class="step-number">5</div>
+        <div class="step-content">
+          <h3>Load the Extension</h3>
+          <p>After enabling Developer mode, new buttons will appear. Click the "Load unpacked" button, then browse to and select the folder you extracted in Step 2.</p>
+          <div class="info-box">
+            <h4>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              Select the Right Folder
+            </h4>
+            <p>Make sure to select the folder that contains the manifest.json file. This is typically the "chrome-extension" folder from the ZIP file.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 6 -->
+      <div class="step">
+        <div class="step-number">6</div>
+        <div class="step-content">
+          <h3>Configure Your Settings</h3>
+          <p>Click the extension icon in your browser toolbar (you may need to pin it first). This will open the configuration popup where you'll enter your chat widget settings:</p>
+          
+          <div class="config-grid">
+            <div class="config-item">
+              <strong>Organization ID</strong>
+              <span>Your Dynamics 365 Org ID</span>
+            </div>
+            <div class="config-item">
+              <strong>Organization URL</strong>
+              <span>Your CRM URL</span>
+            </div>
+            <div class="config-item">
+              <strong>Widget ID</strong>
+              <span>Your chat widget ID</span>
+            </div>
+            <div class="config-item">
+              <strong>Company Name</strong>
+              <span>Optional - for logo branding</span>
+            </div>
+            <div class="config-item">
+              <strong>Questions URL</strong>
+              <span>Optional - Power Automate endpoint</span>
+            </div>
+            <div class="config-item">
+              <strong>Agents URL</strong>
+              <span>Optional - Dynamic agents endpoint</span>
+            </div>
+          </div>
+
+          <div class="info-box">
+            <h4>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              Auto-Detection
+            </h4>
+            <p>If you don't provide a company name, the extension will automatically use the domain of the website you're visiting for logo branding.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 7 -->
+      <div class="step">
+        <div class="step-number">7</div>
+        <div class="step-content">
+          <h3>Start Using the Extension</h3>
+          <p>Once configured, visit any website and you'll see a floating chat button in the bottom-right corner. Click it to open the premium chat widget!</p>
+          
+          <div class="info-box">
+            <h4>
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+              </svg>
+              Features
+            </h4>
+            <p>
+              • Premium sidebar chat interface with 28% width<br>
+              • Automatic logo detection from website domain<br>
+              • Voice input with microphone support<br>
+              • Camera and file upload capabilities<br>
+              • Multiple AI agents to choose from<br>
+              • Current page URL passed to chat context
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p><strong>Need Help?</strong></p>
+      <p>If you encounter any issues during installation, please contact your Microsoft representative or refer to the README.md file included in the extension package.</p>
+      <p style="margin-top: 20px; color: #94a3b8; font-size: 12px;">
+        Microsoft Dynamics 365 Contact Center • Internal Demo Tool
+      </p>
+      <p style="color: #94a3b8; font-size: 11px;">
+        © Microsoft Corporation. For internal demonstration purposes only.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Update download button with actual URL
+    document.getElementById('downloadBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      // Replace this URL with your actual download link
+      const downloadUrl = 'https://your-domain.com/copilot-chat-extension.zip';
+      window.location.href = downloadUrl;
+    });
+  </script>
+</body>
+</html>

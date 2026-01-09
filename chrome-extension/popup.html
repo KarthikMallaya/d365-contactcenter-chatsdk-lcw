@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Widget Settings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 460px;
+      font-family: 'Segoe UI Variable Display', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      color: #0f172a;
+    }
+
+    .container {
+      background: white;
+      border-radius: 0;
+      overflow: hidden;
+    }
+
+    .header {
+      background: white;
+      padding: 40px 32px 36px 32px;
+      text-align: center;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .header-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .header-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .header-text h1 {
+      font-size: 26px;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+
+    .header-text p {
+      font-size: 14px;
+      color: #64748b;
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .demo-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .content {
+      padding: 32px;
+      background: white;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 32px 0 20px 0;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title:first-child {
+      margin-top: 0;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      border-radius: 2px;
+    }
+
+    .section-description {
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+
+    .label-required::after {
+      content: '*';
+      color: #0078d4;
+      margin-left: 3px;
+    }
+
+    input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid #e2e8f0;
+      border-radius: 7px;
+      font-size: 13px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+      background: #fafafa;
+    }
+
+    input:hover {
+      border-color: #cbd5e1;
+      background: #f8fafc;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #0078d4;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 120, 212, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    input::placeholder {
+      color: #94a3b8;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: #0f172a;
+      color: white;
+      font-weight: 500;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: #1e293b;
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.2);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-secondary {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 500;
+      border: 1px solid #e2e8f0;
+    }
+
+    .btn-secondary:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+
+    .status {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      text-align: center;
+      margin-top: 16px;
+      display: none;
+    }
+
+    .status.success {
+      background: #d1fae5;
+      color: #065f46;
+      display: block;
+    }
+
+    .status.error {
+      background: #fee2e2;
+      color: #991b1b;
+      display: block;
+    }
+
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-top: 1px solid #f1f5f9;
+      margin-top: 8px;
+    }
+
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: #0f172a;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: 0.3s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background: #0078d4;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(22px);
+    }
+
+    .small-text {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .optional-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 500;
+      color: #64748b;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="ai.png" alt="AI Icon" class="header-icon">
+      <div class="header-text">
+        <h1>Dynamics 365 Contact Center Chat Widget</h1>
+        <p>Configure your Microsoft Dynamics 365 Contact Center Chat Widget</p>
+      </div>
+      <div class="demo-badge">Internal Microsoft Demo • Not for Production Use</div>
+    </div>
+
+    <div class="content">
+      <div class="section-title">Configuration Settings</div>
+      <div class="section-description">Enter your Dynamics 365 organization details to connect the chat widget to your contact center.</div>
+    
+    <div class="form-group">
+      <label class="label-required">Organization ID</label>
+      <input type="text" id="orgId" placeholder="12345678-abcd-1234-abcd-123456789abc">
+    </div>
+
+    <div class="form-group">
+      <label class="label-required">Organization URL</label>
+      <input type="text" id="orgUrl" placeholder="https://org.crm.dynamics.com">
+    </div>
+
+    <div class="form-group">
+      <label class="label-required">Widget ID</label>
+      <input type="text" id="widgetId" placeholder="12345678-abcd-1234-abcd-123456789abc">
+    </div>
+
+    <div class="section-title">Additional Options</div>
+    <div class="section-description">Enhance your chat experience with custom branding and Power Automate integrations.</div>
+
+    <div class="form-group">
+      <label>Company Name</label>
+      <input type="text" id="company" placeholder="microsoft.com">
+      <div class="small-text">Automatically detected from website domain if not provided</div>
+    </div>
+
+    <div class="form-group">
+      <label>Endpoint Url - Questions</label>
+      <input type="text" id="pauUrl" placeholder="https://prod-xx.westus.logic.azure.com:443/workflows/...">
+      <div class="small-text">Enable AI-powered follow-up question suggestions</div>
+    </div>
+
+    <div class="form-group">
+      <label>Endpoint Url - Agents</label>
+      <input type="text" id="agentsUrl" placeholder="https://prod-xx.westus.logic.azure.com:443/workflows/...">
+      <div class="small-text">Load dynamic agent list from your Power Automate flow</div>
+    </div>
+
+    <div class="toggle-group">
+      <div>
+        <div class="toggle-label">Enable on all websites</div>
+        <div class="small-text">Show chat icon everywhere</div>
+      </div>
+      <label class="toggle-switch">
+        <input type="checkbox" id="enabled" checked>
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="button-group">
+      <button class="btn-secondary" id="clearBtn">Clear</button>
+      <button class="btn-primary" id="saveBtn">Save Settings</button>
+    </div>
+
+    <div class="status" id="status"></div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+/* Floating chat button */
+#copilot-chat-button {
+  position: fixed !important;
+  bottom: 32px !important;
+  right: 32px !important;
+  width: 64px !important;
+  height: 64px !important;
+  background: white !important;
+  border-radius: 50% !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  cursor: pointer !important;
+  z-index: 2147483646 !important;
+  display: flex;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  line-height: normal !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  text-align: center !important;
+}
+
+#copilot-chat-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.16), 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+#copilot-chat-button:active {
+  transform: translateY(0) !important;
+}
+
+#copilot-chat-button img {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: contain !important;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1)) !important;
+  display: block !important;
+}
+
+/* Chat container */
+#copilot-chat-container {
+  position: fixed !important;
+  top: 20px !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  width: 28vw !important;
+  min-width: 420px !important;
+  height: calc(100vh - 40px) !important;
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: -2px 0 24px rgba(0, 0, 0, 0.08), -1px 0 4px rgba(0, 0, 0, 0.04) !important;
+  z-index: 2147483646 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  animation: slideIn 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Backdrop for chat */
+#copilot-chat-backdrop {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  backdrop-filter: blur(2px) !important;
+  z-index: 2147483645 !important;
+  animation: fadeIn 0.3s ease-out !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.chat-close {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  background: white !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  color: #64748b !important;
+  width: 36px !important;
+  height: 36px !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  max-width: 36px !important;
+  max-height: 36px !important;
+  border-radius: 50% !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  font-weight: 300 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s !important;
+  z-index: 2147483647 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+  line-height: 1 !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  text-align: center !important;
+  vertical-align: baseline !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+.chat-close:hover {
+  background: #f8fafc !important;
+  color: #334155 !important;
+  border-color: rgba(0, 0, 0, 0.12) !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Chat iframe */
+#copilot-chat-container iframe {
+  flex: 1 !important;
+  width: 100% !important;
+  border: none !important;
+  display: block !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  #copilot-chat-container {
+    width: 100% !important;
+    min-width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    border-radius: 0 !important;
+  }
+  
+  #copilot-chat-button {
+    bottom: 16px !important;
+    right: 16px !important;
+  }
+  
+  .chat-close {
+    top: 12px !important;
+    right: 12px !important;
+  }
+}
