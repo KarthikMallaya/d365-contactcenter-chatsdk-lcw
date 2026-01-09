@@ -47,17 +47,16 @@ The core layer connects directly to Microsoft Dynamics 365 Contact Center using 
 | ✅ Voice input | Speech-to-text messaging |
 | ✅ Text-to-speech | Read responses aloud for accessibility |
 
-**How to use Layer 1:**
+**⚠️ Important: Configuration Security**
 
-1. Host the widget on your web server (Azure, etc.)
-2. Configure your branding in **Dynamics 365 Admin Center** (logo, colors, welcome message)
-3. Pass only the required parameters:
-   ```
-   https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx
-   ```
-4. The widget connects to your Omnichannel instance and uses your D365 configured branding
+> **For Production:** Never pass `orgId`, `orgUrl`, or `widgetId` as URL parameters! These should be securely configured in your codebase or environment variables.
 
-**This is the production-ready path for customer deployments.**
+**The URL parameter approach (`?orgId=xxx&orgUrl=xxx`) is ONLY for:**
+- Local development and testing
+- Quick demos
+- Partner/Microsoft internal showcases
+
+**For Production Deployment, see [Secure Configuration Guide](#-secure-configuration-for-production) below.**
 
 ---
 
@@ -127,7 +126,159 @@ https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx&company=micros
 
 ## 🚀 Production Deployment Guide
 
-### 🔐 Security Checklist
+### � Secure Configuration for Production
+
+> **Enterprise Best Practice:** Sensitive configuration values like `orgId`, `orgUrl`, and `widgetId` should NEVER be exposed in URLs or client-side code that can be easily inspected.
+
+**There are 3 recommended approaches for production:**
+
+---
+
+#### Option 1: Environment Variables at Build Time (Recommended)
+
+**Step 1:** Create a `.env.production` file (DO NOT commit this to git):
+
+```env
+VITE_ORG_ID=your-organization-id-here
+VITE_ORG_URL=https://your-org.crm.dynamics.com
+VITE_WIDGET_ID=your-widget-id-here
+VITE_COMPANY=yourcompany.com
+```
+
+**Step 2:** Modify `src/config.ts` to use environment variables:
+
+```typescript
+// src/config.ts - PRODUCTION CONFIGURATION
+
+export const getOmnichannelConfig = () => {
+  // For PRODUCTION: Use environment variables (set at build time)
+  // These get baked into the bundle during 'npm run build'
+  const orgId = import.meta.env.VITE_ORG_ID;
+  const orgUrl = import.meta.env.VITE_ORG_URL;
+  const widgetId = import.meta.env.VITE_WIDGET_ID;
+  const company = import.meta.env.VITE_COMPANY;
+
+  // Fallback to URL params ONLY for development/demo
+  const params = new URLSearchParams(window.location.search);
+  
+  return {
+    orgId: orgId || params.get("orgId"),
+    orgUrl: orgUrl || params.get("orgUrl"),
+    widgetId: widgetId || params.get("widgetId"),
+    company: company || params.get("company"),
+    // ... rest of config
+    isValid: !!(orgId || params.get("orgId")) && 
+             !!(orgUrl || params.get("orgUrl")) && 
+             !!(widgetId || params.get("widgetId"))
+  };
+};
+```
+
+**Step 3:** Add `.env.production` to `.gitignore`:
+
+```gitignore
+# Environment files with secrets
+.env.production
+.env.local
+.env.*.local
+```
+
+**Step 4:** Build for production:
+
+```bash
+npm run build
+```
+
+The values are embedded at build time — no URL parameters needed!
+
+---
+
+#### Option 2: Hardcode Configuration (Simple but Less Flexible)
+
+For organizations with a single deployment, directly modify `src/config.ts`:
+
+```typescript
+// src/config.ts - HARDCODED PRODUCTION CONFIG
+
+export const getOmnichannelConfig = () => {
+  // ⚠️ PRODUCTION CONFIGURATION - DO NOT USE URL PARAMETERS
+  return {
+    orgId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    orgUrl: "https://your-org.crm.dynamics.com",
+    widgetId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    channelId: "lcw",
+    company: "yourcompany.com",
+    
+    // Branding - set your colors directly
+    customColors: {
+      primary: "#0078D4",
+      secondary: "#005A9E",
+      light: "#DEECF9",
+      dark: "#004578"
+    },
+    
+    // Disable demo features
+    pauUrl: null,      // Disable AI follow-up questions
+    agentsUrl: null,   // Disable dynamic agents
+    
+    isValid: true
+  };
+};
+```
+
+---
+
+#### Option 3: Server-Side Configuration API (Most Secure)
+
+For maximum security, fetch configuration from your own backend:
+
+```typescript
+// src/config.ts - FETCH FROM SECURE BACKEND
+
+let cachedConfig: OmnichannelConfig | null = null;
+
+export const getOmnichannelConfig = async () => {
+  if (cachedConfig) return cachedConfig;
+  
+  try {
+    // Your backend validates the request and returns config
+    const response = await fetch('/api/chat-config', {
+      credentials: 'include', // Include auth cookies
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) throw new Error('Config fetch failed');
+    
+    cachedConfig = await response.json();
+    return cachedConfig;
+  } catch (error) {
+    console.error('Failed to load chat configuration');
+    return { isValid: false };
+  }
+};
+```
+
+Your backend (`/api/chat-config`) would:
+- Authenticate the request
+- Return configuration only to authorized users
+- Keep secrets server-side
+
+---
+
+#### Configuration Approach Comparison
+
+| Approach | Security | Flexibility | Complexity | Best For |
+|----------|----------|-------------|------------|----------|
+| **Environment Variables** | 🟢 High | 🟢 High | 🟡 Medium | Most production deployments |
+| **Hardcoded** | 🟡 Medium | 🔴 Low | 🟢 Low | Single-tenant, simple deployments |
+| **Server-Side API** | 🟢 Highest | 🟢 Highest | 🔴 High | Enterprise, multi-tenant |
+| **URL Parameters** | 🔴 Low | 🟢 High | 🟢 Low | Development & demos ONLY |
+
+---
+
+### �🔐 Security Checklist
 
 Before deploying to production, ensure you complete these critical steps:
 
