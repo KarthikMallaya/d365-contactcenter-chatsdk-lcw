@@ -125,6 +125,153 @@ https://your-hosted-widget.com/?orgId=xxx&orgUrl=xxx&widgetId=xxx&company=micros
 
 ---
 
+## 🚀 Production Deployment Guide
+
+### 🔐 Security Checklist
+
+Before deploying to production, ensure you complete these critical steps:
+
+| Item | Action | Priority |
+|------|--------|----------|
+| **HTTPS** | Host on HTTPS only — Omnichannel SDK requires secure connections | 🔴 Critical |
+| **CORS Origins** | Add your domain to D365 Admin → Channels → Chat → Allowed Origins | 🔴 Critical |
+| **Content Security Policy** | Configure CSP headers to allow D365 domains | 🟡 High |
+| **Authentication** | Consider adding pre-chat authentication if needed | 🟡 High |
+| **Data Residency** | Verify data flows comply with your region's requirements | 🟡 High |
+| **Remove Demo Code** | Remove or disable Layer 2 demo features (see below) | 🟡 High |
+
+### 🧹 Code Cleanup for Production
+
+**If you're deploying for customers, we recommend removing/disabling these demo features:**
+
+#### 1. Remove Dynamic Logo Extraction
+In `src/config.ts`, the `getCompanyLogoUrl()` function uses a third-party API (`logo.dev`). For production:
+
+```typescript
+// BEFORE (Demo mode):
+return `https://img.logo.dev/${baseUrl}?token=...`;
+
+// AFTER (Production): Use your own hosted logo
+return "/assets/your-company-logo.png";
+```
+
+#### 2. Remove AI Follow-up Questions
+In `src/App.tsx`, find and remove or disable the `fetchFollowUpQuestions()` function and related state:
+
+```typescript
+// Comment out or remove these lines:
+// const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
+// const [suggestionsLoading, setSuggestionsLoading] = useState(false);
+// const fetchFollowUpQuestions = async (botResponses: string) => { ... }
+```
+
+Also remove the suggestions UI section in the JSX.
+
+#### 3. Remove Color Extraction
+In `src/colorExtractor.ts`, this file is only needed for demo purposes. For production:
+- Set your brand colors directly in `src/config.ts` 
+- Or use URL parameters: `?primaryColor=#0078D4`
+
+#### 4. Hardcode Your Branding
+In `src/config.ts`, add your company to the `brandColors` map:
+
+```typescript
+const brandColors: Record<string, {...}> = {
+  "yourcompany.com": { 
+    primary: "#0078D4", 
+    secondary: "#005A9E", 
+    light: "#DEECF9", 
+    dark: "#004578" 
+  },
+};
+```
+
+#### 5. Remove Chrome Extension (Optional)
+The `/chrome-extension` folder is only for demo purposes. You can:
+- Delete the entire folder for production builds
+- Or simply don't distribute it to customers
+
+### ⚡ Performance Considerations
+
+| Area | Recommendation |
+|------|----------------|
+| **Bundle Size** | Run `npm run build` — Vite tree-shakes unused code |
+| **Lazy Loading** | Consider lazy-loading the chat widget on user interaction |
+| **CDN** | Host static assets on a CDN (Azure CDN, CloudFront) |
+| **Caching** | Set appropriate cache headers for static assets |
+| **Images** | Optimize logo/icon images before deployment |
+| **Connection** | The SDK maintains a persistent WebSocket — monitor for reconnection handling |
+
+### 🧪 Testing Recommendations
+
+**Before going live, test these scenarios:**
+
+| Test Case | What to Verify |
+|-----------|----------------|
+| **Happy Path** | User can start chat, send messages, receive responses |
+| **Bot Handoff** | Escalation from Copilot to human agent works |
+| **File Upload** | Images and PDFs upload successfully (test 5MB limit) |
+| **Network Loss** | Widget handles offline/online transitions gracefully |
+| **Mobile** | Test on iOS Safari, Android Chrome — responsive layout |
+| **Accessibility** | Screen reader compatibility, keyboard navigation |
+| **Load Testing** | Simulate concurrent users if high traffic expected |
+| **Session Timeout** | Verify behavior when D365 session expires |
+| **Browser Support** | Test on Chrome, Edge, Firefox, Safari |
+
+### 📊 Monitoring & Logging
+
+Consider adding:
+
+```typescript
+// Example: Add application insights or your preferred monitoring
+import { ApplicationInsights } from '@microsoft/applicationinsights-web';
+
+const appInsights = new ApplicationInsights({
+  config: {
+    connectionString: 'YOUR_CONNECTION_STRING'
+  }
+});
+appInsights.loadAppInsights();
+appInsights.trackPageView();
+```
+
+**Key metrics to monitor:**
+- Chat session start/end rates
+- Message send failures
+- File upload failures
+- Connection errors
+- Average session duration
+
+### 🌐 Browser Compatibility
+
+| Browser | Version | Status |
+|---------|---------|--------|
+| Chrome | 90+ | ✅ Fully Supported |
+| Edge | 90+ | ✅ Fully Supported |
+| Firefox | 88+ | ✅ Fully Supported |
+| Safari | 14+ | ✅ Supported (some speech features limited) |
+| Mobile Chrome | Latest | ✅ Fully Supported |
+| Mobile Safari | iOS 14+ | ✅ Supported |
+| IE 11 | - | ❌ Not Supported |
+
+### 📋 Pre-Launch Checklist
+
+```
+□ HTTPS configured and working
+□ Domain added to D365 allowed origins
+□ Demo features removed/disabled
+□ Branding configured (logo, colors)
+□ Tested on all target browsers
+□ Tested on mobile devices
+□ Error monitoring configured
+□ Load tested (if applicable)
+□ Accessibility audit completed
+□ Security review completed
+□ Backup/rollback plan documented
+```
+
+---
+
 ### ✨ Dynamic Branding (Layer 2 Details)
 
 The widget features **intelligent automatic branding**:
